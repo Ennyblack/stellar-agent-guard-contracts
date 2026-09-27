@@ -300,7 +300,7 @@ Rules applied:
 
 An asset contract listed in `assets` invoked with any other function (e.g. `mint`, `burn`,
 `set_admin`, `clawback` — none of which the account should ever call as authorizer) is blocked
-(`FunctionNotAllowed`). Asset addresses *not* listed in `assets` are blocked
+(`AssetFnNotAllowed`). Asset addresses *not* listed in `assets` are blocked
 (`AssetNotAllowed`) — an agent cannot silently move balances on an unregistered SAC. This keeps
 the "we know what we're enforcing" promise exact.
 
@@ -361,6 +361,7 @@ To close the CheckResult/Error duality gap, every contract `Error` variant maps 
 | 23 | `WindowCapExceeded` | `window_cap_exceeded` | Yes | Evaluated against rolling window ledger in `check()`. |
 | 24 | `ProtocolNotAllowed` | `protocol_not_allowed` | No | Auth-path only: non-SAC protocol calls do not use `check()`. |
 | 25 | `FunctionNotAllowed` | `function_not_allowed` | No | Auth-path only: restricted functions apply to auth contexts, not `check()`. |
+| 29 | `AssetFnNotAllowed` | `asset_fn_not_allowed` | No | Auth-path only: non-transfer functions on listed SAC contracts. |
 | 26 | `UnknownContract` | `unknown_contract` | No | Auth-path only: unlisted contracts are encountered in auth contexts. |
 | 27 | `SelfFunctionNotAllowed` | `self_function_not_allowed` | No | Auth-path only: self-calls are part of `__check_auth` context dispatch. |
 | 28 | `CreateContractNotAllowed` | `create_contract_not_allowed` | No | Auth-path only: contract creation host functions occur in auth contexts.
@@ -436,7 +437,7 @@ pub enum Error {            // values stable; see tests/fixtures
     AssetNotAllowed = 20, RecipientNotAllowed = 21, PerTxCapExceeded = 22,
     WindowCapExceeded = 23, ProtocolNotAllowed = 24, FunctionNotAllowed = 25,
     UnknownContract = 26, SelfFunctionNotAllowed = 27,
-    CreateContractNotAllowed = 28,
+    CreateContractNotAllowed = 28, AssetFnNotAllowed = 29,
 }
 ```
 

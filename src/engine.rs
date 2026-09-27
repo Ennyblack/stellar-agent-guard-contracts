@@ -200,7 +200,7 @@ pub fn decide(
                 return Decision::Blocked(Error::CreateContractNotAllowed);
             }
             ParsedCall::Unknown { .. } => return Decision::Blocked(Error::UnknownContract),
-            ParsedCall::AssetOther { .. } => return Decision::Blocked(Error::FunctionNotAllowed),
+            ParsedCall::AssetOther { .. } => return Decision::Blocked(Error::AssetFnNotAllowed),
             ParsedCall::AssetTransfer { to, amount, .. } => {
                 if amount <= 0 {
                     return Decision::Blocked(Error::InvalidAmount);
