@@ -191,6 +191,7 @@ pub enum Error {
     UnknownContract = 26,
     SelfFunctionNotAllowed = 27,
     CreateContractNotAllowed = 28,
+    ListedAssetAdminOrMintAttempt = 29,
 }
 
 impl Error {
@@ -217,6 +218,7 @@ impl Error {
             Self::UnknownContract => "unknown_contract",
             Self::SelfFunctionNotAllowed => "self_function_not_allowed",
             Self::CreateContractNotAllowed => "create_contract_not_allowed",
+            Self::ListedAssetAdminOrMintAttempt => "listed_asset_admin_or_mint_attempt",
         }
     }
 }

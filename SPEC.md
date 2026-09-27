@@ -299,8 +299,8 @@ Rules applied:
 4. Amount validity: `amount > 0` or block `InvalidAmount`.
 
 An asset contract listed in `assets` invoked with any other function (e.g. `mint`, `burn`,
-`set_admin`, `clawback` — none of which the account should ever call as authorizer) is blocked
-(`FunctionNotAllowed`). Asset addresses *not* listed in `assets` are blocked
+`clawback`, `set_admin`, `pause`, `unpause` — none of which the account should ever call as authorizer) is blocked
+(`ListedAssetAdminOrMintAttempt`). Asset addresses *not* listed in `assets` are blocked
 (`AssetNotAllowed`) — an agent cannot silently move balances on an unregistered SAC. This keeps
 the "we know what we're enforcing" promise exact.
 
@@ -410,7 +410,7 @@ pub enum Error {            // values stable; see tests/fixtures
     AssetNotAllowed = 20, RecipientNotAllowed = 21, PerTxCapExceeded = 22,
     WindowCapExceeded = 23, ProtocolNotAllowed = 24, FunctionNotAllowed = 25,
     UnknownContract = 26, SelfFunctionNotAllowed = 27,
-    CreateContractNotAllowed = 28,
+    CreateContractNotAllowed = 28, ListedAssetAdminOrMintAttempt = 29,
 }
 ```
 
