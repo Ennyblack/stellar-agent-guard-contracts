@@ -335,7 +335,9 @@ pub fn decide(
             }
             ParsedCall::CreateContract => Decision::Blocked(Error::CreateContractNotAllowed),
             ParsedCall::Unknown { .. } => Decision::Blocked(Error::UnknownContract),
-            ParsedCall::AssetOther { .. } => Decision::Blocked(Error::ListedAssetAdminOrMintAttempt),
+            ParsedCall::AssetOther { .. } => {
+                Decision::Blocked(Error::ListedAssetAdminOrMintAttempt)
+            }
             ParsedCall::AssetTransfer { to, amount, .. } => {
                 if amount <= 0 {
                     Decision::Blocked(Error::InvalidAmount)
